@@ -152,9 +152,9 @@ jQuery(document).ready(function() {
         type: "POST",
         url: "getCities.php",
         data:'keyword='+$(this).val(),
-        beforeSend: function(){
-            $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
-        },
+        // beforeSend: function(){
+        //     $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
+        // },
         success: function(data){
             $("#suggesstion-box").show();
             $("#suggesstion-box").html(data);
@@ -163,10 +163,34 @@ jQuery(document).ready(function() {
         });
     });
 
+    
+
     //To select city name
-    function selectCity(val) {
+    function getBusinessInfoForCity() {
         $("#search-box").val(val);
         $("#suggesstion-box").hide();
+        $.ajax({
+            type: "POST",
+            url: "getBusinessList.php",
+            data: val,
+            success: function(data){
+                $("#suggesstion-box").show();
+                $("#suggesstion-box").html(data);
+                $("#search-box").css("background","#FFF");
+            }
+        });
     }
+
+
+
+    // var val = $('#slider').slider("option", "value");
+    // console.log(val);
+
+    // $('#slider').slider({
+    //        slide: function (event, ui) {
+    //         console.log(ui.value);
+    //            // $('#anyDiv').val(ui.value);
+    //        }
+    //    });
 
 });

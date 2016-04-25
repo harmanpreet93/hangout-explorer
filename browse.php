@@ -1,3 +1,8 @@
+<?php
+    include 'main.php'
+  ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,10 +26,10 @@
 <body>
 
 <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top " role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+            <div class="navbar-header" >
                 <a class="navbar-brand">Hangout Hunter</a>
             </div>
             
@@ -123,7 +128,7 @@
                     <br>
                     <div>
                         <h4>Ratings</h4>
-                        <input type=range multiple min=0 max=5 step="0.5" value="0.5">
+                        <input id="slider" type=range multiple min=0 max=5 step="0.5" value="0.5">
                     </div>
                     <br>
                     <div class="checkbox">
