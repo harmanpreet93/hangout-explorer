@@ -20,6 +20,7 @@
     <link href="css/project.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/jqcloud.css" />
 
+
 </head>
 
 <body>
@@ -40,11 +41,12 @@
                     <li>
                         <a href="">About</a>
                     </li>
+                    <!-- <li> -->
+                        <!-- <a>Welcome user</a> -->
+                        <!-- <a id = "welcome"></a> -->
+                    <!-- </li> -->
                     <li>
-                        <a>Welcome user</a>
-                    </li>
-                    <li>
-                        <a href="">Logout</a>
+                        <a href="?logout">Logout</a>
                     </li>
                 </ul>
             
@@ -82,10 +84,10 @@
           <!-- </div> -->
           <div class="modal-body">
           <div class="container-fluid">
-              <ul class="nav nav-tabs">
+              <ul class="nav nav-tabs" id="parent-list">
                 <li class="active"><a data-toggle="tab" href="#business_info">Business Info</a></li>
-                <li><a data-toggle="tab" href="#review_summary">Reviews</a></li>
-                <li><a data-toggle="tab disabled" href="#menu2">User Reviews</a></li>
+                <li><a data-toggle="tab" href="#review_summary">Word Cloud</a></li>
+                <li><a data-toggle="tab" href="#my_review">My Review</a></li>
               </ul>
 
               <div class="tab-content">
@@ -93,12 +95,15 @@
 
                 </div>
                 <div id="review_summary" class="tab-pane fade">
+                <div id="word_cloud" style="height: 400px; width: 720px;"></div>
                   <!-- <h3>Reviews</h3> -->
                   <!-- <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> -->
                 </div>
-                <div id="menu2" class="tab-pane fade">
+                <div id="my_review" class="tab-pane fade">
                   <h3>User Reviews</h3>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                  <div id="reviews">
+                  <p id="review_para">No Reviews found.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -188,6 +193,7 @@
     <!-- <script src="http://maps.googleapis.com/maps/api/js"></script> -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDgnkclVTMrcELYURLVmZ5mdZ9Z_HH2OQ0&libraries=places"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jqcloud.js"></script>
     <script src="js/scripts.js"></script>
     
 </body>

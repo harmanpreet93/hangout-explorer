@@ -11,10 +11,10 @@ session_start();
 	// exit;
 
 
-// if(!$_SESSION['userid']) {
-// 	header("Location: index.php");
-// 	exit;
-// }
+if(($_SESSION['usertype'] == 'registered') && (!$_SESSION['userid'])) {
+	header("Location: index.php");
+	exit;
+}
 
 if(isset($_GET['logout'])) {
 	$_SESSION = array();
@@ -24,6 +24,6 @@ if(isset($_GET['logout'])) {
 	exit;
 }
 
-echo '<div id="welcome">Welcome ' .$_SESSION['username']. '!</div>';
+// echo '<div class="nav navbar-nav navbar-right"><li><a id="welcome">Welcome ' .$_SESSION['username']. '</a></li></div>';
 
 ?> 

@@ -1,4 +1,35 @@
 jQuery(document).ready(function() {
+
+    google.maps.event.addDomListener(window, 'load', initializeMap());
+    var markers = [];
+    var map;
+    var infowindow;
+    var bounds;
+    var geocoder;
+    var word_array = [];
+
+    document.getElementById("parent-list").addEventListener("click",function(e){
+
+        // console.log("are aagaya");
+        // word_array = [
+        //                             {text: "Lorem", weight: 15, html:{style:"color:#a90000"}},
+        //                             {text: "Ipsum", weight: 9},
+        //                             {text: "Dolor", weight: 6},
+        //                             {text: "Sit", weight: 7},
+        //                             {text: "Amet", weight: 5},
+        //                             {text: "Hey", weight: 15},
+        //                             {text: "Harman", weight: 9},
+        //                             {text: "Dol", weight: 6},
+        //                             {text: "Sitter", weight: 7},
+        //                             {text: "Amity", weight: 5}
+
+                                    
+        //                         ];
+                              
+                $("#word_cloud").jQCloud(word_array,{width:720,height:400,delay:50});
+    
+    });
+
     // AJAX call for autocomplete 
     $("#search-box").keyup(function() {
         $.ajax({
@@ -20,7 +51,7 @@ jQuery(document).ready(function() {
     $('#filter_form').on('submit', function (e) {
 
         var postData = $("#filter_form").serialize();
-         console.log(postData);
+         // console.log(postData);
 
         e.preventDefault();
 
@@ -30,7 +61,10 @@ jQuery(document).ready(function() {
         dataType: 'json',
         data: postData,
         success: function (data) {
-            console.log("results: "+data);
+            // console.log("results: "+data);
+            clearMarkers();
+            initializeMap();
+            displayMarkers(data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("error: " + errorThrown, " ," + textStatus + ", " + jqXHR);   
@@ -51,18 +85,14 @@ jQuery(document).ready(function() {
             data: 'cityname=' + cityText,
             success: function(data) {
                 clearMarkers();
+                initializeMap();
                  displayMarkers(data);
                 // console.log(data);
             }
         });
     });
     
-    google.maps.event.addDomListener(window, 'load', initializeMap());
-    var markers = [];
-    var map;
-    var infowindow;
-    var bounds;
-    var geocoder;
+    
 
     function initializeMap() {
         console.log('Inside initializeMap');
@@ -121,6 +151,10 @@ jQuery(document).ready(function() {
         });
         markers.push(marker);
         marker.addListener('click', function() {
+
+            var businessid = business['business_id'];
+            getWordCloud(businessid);
+
             $('#myModal').modal('show');
             var business_name = business['name'];
             var rating = business['stars'];
@@ -136,6 +170,78 @@ jQuery(document).ready(function() {
         });
         // Automatically center the map fitting all markers on the screen
         map.fitBounds(bounds);
+    }
+
+    function getWordCloud(id) {
+        console.log("here");
+        $.ajax({
+            type: "POST",
+            url: "getBusinessDetail.php",
+            dataType: 'json',
+            data: 'businessid=' + id,
+            success: function(data) {
+                // console.log("data: " + data);
+                showUserReview(data);
+                showWordCloud(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("error: " + errorThrown, " ," + textStatus + ", " + jqXHR);   
+        }
+        });
+        
+    }
+
+    function showUserReview(review_data) {
+        // alert("hey");
+        if(JSON.parse(review_data['reviewDetail']).length != 0) {
+            review_text = JSON.parse(review_data['reviewDetail'])[0]['text'];
+            review_stars = JSON.parse(review_data['reviewDetail'])[0]['stars'];
+            $("#review_para").html("Rating: " + review_stars + "<br>" + review_text);
+        }
+    }
+
+    function showWordCloud(data) {
+        $("#word_cloud").empty();
+        $('#word_cloud').jQCloud('destroy');
+        word_array = [];
+        json_obj = JSON.parse(data['wordCloud'])['wordCloud'];
+
+        word_array = json_obj;
+
+        // alert(word_array);
+        // for (var i = 0; i < json_obj.length; i++) {
+        //     // word_array[i]['text'] = json_obj[i]['word'];
+        //     // word_array[i]['weight'] = json_obj[i]['frequency'];
+        //     if(json_obj[i]['polarity'] < 0) {
+        //         str = "";
+        //         str += "html:{style:'color:#a90000}";
+        //         word_array[i]['html'] = str;
+        //     }
+        //     else if (json_obj[i]['polarity'] > 0){
+        //         str = "";
+        //         str += "html:{style:'color:#3db11a}";
+
+        //         word_array[i]['html'] = str;
+        //     }
+        //     else {
+        //         tr = "";
+        //         // str += 'html:{style:"color:'+#330e6d+'}';
+        //         str += "html:{style:'color:#330e6d}";
+        //         word_array[i]['html'] = str;
+        //     }
+        // }
+
+        // data_n = data['wordCloud'];
+        // alert(data);
+        // word_array = data;
+        // $.each(data.d, function(index, value) {
+        //     word_array.push(value);
+
+        // });
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+         //   word_array.push(data[i]);
+        }
     }
 
     function getLocationFromGeoCode(address, next) {

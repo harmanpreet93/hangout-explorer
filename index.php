@@ -61,9 +61,12 @@
 			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
 			                        </div> -->
 			                        <input type="submit" class="btn" name="submit" value="Login"></input>
-			                        <!-- <input type="submit" class="btn" value="Guest"></input> -->
 
 			                    </form>
+			                    <form role="form" method="post" action="" class="login-form">
+			                        <input type="submit" class="btn" name="guestSubmit" value="Guest" style="margin-top: 10px"></input>
+			                    </form>
+
 		                    </div>
                         </div>
                     </div>
