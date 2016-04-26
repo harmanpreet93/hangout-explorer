@@ -185,8 +185,8 @@
 
     <!-- script references -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDgnkclVTMrcELYURLVmZ5mdZ9Z_HH2OQ0&libraries=places"></script> -->
+    <!-- <script src="http://maps.googleapis.com/maps/api/js"></script> -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDgnkclVTMrcELYURLVmZ5mdZ9Z_HH2OQ0&libraries=places"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
     

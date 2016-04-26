@@ -8,19 +8,18 @@ require 'connect.php';
 // echo "<script type='text/javascript'>alert('".$_POST['categoryArr'][0]."');</script>";
 // echo "<script type='text/javascript'>alert('".$_POST['rating']."');</script>";
 // echo "<script type='text/javascript'>alert('".$_POST['visited']."');</script>";
-echo "<script type='text/javascript'>alert('".$_SESSION['cityname']."');</script>";
 
 
-if (isset($_POST['filter'])) {
+if (isset($_POST)) {
 	$query = "SELECT * FROM ( SELECT * FROM business WHERE city = '".$_SESSION['cityname']."'";
   	// echo "<script type='text/javascript'>alert('".$query."');</script>";
-  	// echo "<script type='text/javascript'>alert('".$_SESSION['cityname']."');</script>";
+
 
 	$categoryStr = "";
 	if (isset($_POST['categoryArr'])) {
 		$categoryArr = $_POST['categoryArr'];
 
-  		//echo "<script type='text/javascript'>alert('".$categoryArr[0]."');</script>";
+  		// echo "<script type='text/javascript'>alert('".$categoryArr[0]."');</script>";
 	
 
 		//creating comma separated values
@@ -31,7 +30,7 @@ if (isset($_POST['filter'])) {
 		// echo "categoryStr is ".$categoryStr."</br>";
 		$categoryStr = substr($categoryStr, 0,strlen($categoryStr)-1);
 
-		$query .= " AND FIND_IN_SET(category, ".$categoryStr.")";
+		$query .= " AND FIND_IN_SET(categories, '".$categoryStr."')";
 
 	}
 	
@@ -49,8 +48,13 @@ if (isset($_POST['filter'])) {
 			$query .= " INNER JOIN review r ON b.business_id = r.business_id AND user_id = '".$userid."'";
 		}
 	}
+  	// echo "<script type='text/javascript'>alert('".$query."');</script>";
+
 
 	$businessList = mysqli_query($conn, $query);
+  	// echo "<script type='text/javascript'>alert('".$businessList[0]."');</script>";
+
+
 	
 	$data = array();
 	

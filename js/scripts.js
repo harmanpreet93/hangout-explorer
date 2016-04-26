@@ -17,26 +17,27 @@ jQuery(document).ready(function() {
         });
     });
 
-//     $('#filter_form').on('submit', function (e) {
+    $('#filter_form').on('submit', function (e) {
 
-//         var postData = $("#filter_form").serialize();
-//          console.log(postData);
+        var postData = $("#filter_form").serialize();
+         console.log(postData);
 
-//         e.preventDefault();
+        e.preventDefault();
 
-//         $.ajax({
-//         type: 'post',
-//         url: 'filter.php',
-//         data: postData,
-//         success: function (data) {
-//             console.log("results: "+data);
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//             console.log("error: " + errorThrown);   
-//         }
+        $.ajax({
+        type: 'post',
+        url: 'filter.php',
+        dataType: 'json',
+        data: postData,
+        success: function (data) {
+            console.log("results: "+data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("error: " + errorThrown, " ," + textStatus + ", " + jqXHR);   
+        }
 
-//     });
-// });
+    });
+});
 
     $('body').on('click', 'li.cityOptions', function() {
         var cityText = $(this).text();
@@ -124,7 +125,7 @@ jQuery(document).ready(function() {
             var business_name = business['name'];
             var rating = business['stars'];
             var category = business['categories'];
-            var reviews = business['review_count'];
+            var review_count = business['review_count'];
             var city = business['city'];
             $('#business_info').html("<h3><h3>");
             $('#business_info').append("<strong> Name: " + business_name + "</strong><br>");
