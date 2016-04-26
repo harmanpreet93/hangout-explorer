@@ -1,20 +1,16 @@
 <?php
 session_name('Login');
 
-session_start();
+// session_start();
 
 require 'connect.php';
 
 // echo "<script type='text/javascript'>alert('".$_POST['categoryArr'][0]."');</script>";
-// echo "<script type='text/javascript'>alert('".$_POST['rating']."');</script>";
-// echo "<script type='text/javascript'>alert('".$_POST['visited']."');</script>";
-echo "<script type='text/javascript'>alert('".$_SESSION['cityname']."');</script>";
 
 
 if (isset($_POST['filter'])) {
 	$query = "SELECT * FROM ( SELECT * FROM business WHERE city = '".$_SESSION['cityname']."'";
   	// echo "<script type='text/javascript'>alert('".$query."');</script>";
-  	// echo "<script type='text/javascript'>alert('".$_SESSION['cityname']."');</script>";
 
 	$categoryStr = "";
 	if (isset($_POST['categoryArr'])) {
@@ -31,22 +27,24 @@ if (isset($_POST['filter'])) {
 		// echo "categoryStr is ".$categoryStr."</br>";
 		$categoryStr = substr($categoryStr, 0,strlen($categoryStr)-1);
 
-		$query .= " AND FIND_IN_SET(category, ".$categoryStr.")";
+		$query .= "AND FIND_IN_SET(category, ".$categoryStr.")";
+  		// echo "<script type='text/javascript'>alert('".$query."');</script>";
 
 	}
 	
 	if (isset($_POST['rating'])) {
 		$rating = $_POST['rating'];
-		$query .= " AND stars >=".$rating;
+		$query .= "AND stars >=".$rating;
 	}
 
 	$query .= ") b";
+  //	echo "<script type='text/javascript'>alert('qq ".(string)$query."');</script>";
 
 
 	if (isset($_POST['visited'])) { 
 		if ($_SESSION['usertype'] == 'registered') {
 			$userid = $_SESSION['userid'];
-			$query .= " INNER JOIN review r ON b.business_id = r.business_id AND user_id = '".$userid."'";
+			$query .= "INNER JOIN review r ON b.business_id = r.business_id AND user_id = '".$userid."'";
 		}
 	}
 
@@ -59,12 +57,9 @@ if (isset($_POST['filter'])) {
     	array_push($data, $row);
 	}
 }
-  	// echo "<script type='text/javascript'>alert('qq ".(string)$data."');</script>";
 
 $jsonString = json_encode($data);
-
 echo $jsonString;
-
 	// $row = mysqli_fetch_array($conn, MYSQL_BOTH);
 
   	// echo "<script type='text/javascript'>alert('row ".$row."');</script>";

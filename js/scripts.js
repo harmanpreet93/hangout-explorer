@@ -1,13 +1,73 @@
 jQuery(document).ready(function() {
+    // AJAX call for autocomplete 
+    $("#search-box").keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: "getCityList.php",
+            data: 'keyword=' + $(this).val(),
+            beforeSend: function() {
+                $("#search-box").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
+            },
+            success: function(data) {
+                // console.log("data: " + data);
+                $("#suggesstion-box").show();
+                $("#suggesstion-box").html(data);
+                $("#search-box").css("background", "#FFF");
+            }
+        });
+    });
 
+//     $('#filter_form').on('submit', function (e) {
+
+//         var postData = $("#filter_form").serialize();
+//          console.log(postData);
+
+//         e.preventDefault();
+
+//         $.ajax({
+//         type: 'post',
+//         url: 'filter.php',
+//         data: postData,
+//         success: function (data) {
+//             console.log("results: "+data);
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             console.log("error: " + errorThrown);   
+//         }
+
+//     });
+// });
+
+    $('body').on('click', 'li.cityOptions', function() {
+        var cityText = $(this).text();
+        // alert(cityText);
+        $("#search-box").val(cityText);
+        $("#suggesstion-box").hide();
+        $.ajax({
+            type: "POST",
+            url: "getBusinessList.php",
+            dataType: 'json',
+            data: 'cityname=' + cityText,
+            success: function(data) {
+                clearMarkers();
+                 displayMarkers(data);
+                // console.log(data);
+            }
+        });
+    });
+    
     google.maps.event.addDomListener(window, 'load', initializeMap());
     var markers = [];
-    
+    var map;
+    var infowindow;
+    var bounds;
+    var geocoder;
+
     function initializeMap() {
         console.log('Inside initializeMap');
-        var infowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-        var geocoder = new google.maps.Geocoder;
+        infowindow = new google.maps.InfoWindow();
+        bounds = new google.maps.LatLngBounds();
+        geocoder = new google.maps.Geocoder;
         var mapDiv = document.getElementById('map-canvas');
         var mapOptions = {
             center: {
@@ -23,24 +83,36 @@ jQuery(document).ready(function() {
             fullscreenControl: true
         };
         // create google maps object
-        var map = new google.maps.Map(mapDiv, mapOptions);
-        var address = {};
-        address['lat'] = 17.413742;
-        address['long'] = 78.2662389;
-        setTempMarker(map,address,infowindow,bounds);
-        // initializeSearchBox(map, infowindow);
-        // setMarkersUsingGeocoder(map, geocoder, infowindow, bounds);
+        map = new google.maps.Map(mapDiv, mapOptions);
     }
 
-    function setTempMarker(map,address,infowindow,bounds) {
+    function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+    }
+
+    function displayMarkers(business_data) {
+            // console.log(business_data.length);
+
+        for (var i = 0; i < business_data.length; i++) {
+            address = {};
+            // console.log(business_data[i]['latitude']);
+            address['lat'] = parseFloat(business_data[i]['latitude']);
+            address['long'] = parseFloat(business_data[i]['longitude']);
+            // console.log(address);
+            setMarker(address, business_data[i]);
+        }
+    }
+
+    function setMarker(address, business) {
         var latlng = {
             lat: address['lat'],
             lng: address['long']
         };
         var position = new google.maps.LatLng(address['lat'], address['long']);
-        // bounds.extend(position);
-        markers = [];
-
+        bounds.extend(position);
         marker = new google.maps.Marker({
             map: map,
             position: latlng,
@@ -48,62 +120,25 @@ jQuery(document).ready(function() {
         });
         markers.push(marker);
         marker.addListener('click', function() {
-            // $('.modal-title').html("Review Summary: "+ marker.getTitle());   
-
-            var word_array = [
-                {text: "Lorem", weight: 15},
-                {text: "Ipsum", weight: 9},
-                {text: "Dolor", weight: 6},
-                {text: "Sit", weight: 7},
-                {text: "Amet", weight: 5},
-                {text: "Hey", weight: 15},
-                {text: "Harman", weight: 9},
-                {text: "Dol", weight: 6},
-                {text: "Sitter", weight: 7},
-                {text: "Amity", weight: 5}
-                // ...as many words as you want
-            ];
-
-            $("#review_summary").css("height",400);
-            $("#review_summary").css("width",720);
-            // $("#review-body").html("");
-            $("#review_summary").jQCloud(word_array);
-             // $("#review_summary").jQCloud(word_array, {
-              // autoResize: true,
-              // colors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
-              //   fontSize: {
-              //     from: 0.1,
-              //     to: 0.02
-              //   }
-            // });
-
             $('#myModal').modal('show');
-            // infowindow.setContent(marker.getContent());
-            // infowindow.open(marker.get('map'), marker);
+            var business_name = business['name'];
+            var rating = business['stars'];
+            var category = business['categories'];
+            var reviews = business['review_count'];
+            var city = business['city'];
+            $('#business_info').html("<h3><h3>");
+            $('#business_info').append("<strong> Name: " + business_name + "</strong><br>");
+            $('#business_info').append("<strong>Category: " + category + "</strong><br>");
+            $('#business_info').append("<strong>City: " + city + "</strong><br>");
+            $('#business_info').append("<strong>Rating: " + rating + "</strong><br>");
+            $('#business_info').append("<strong>Review Count: " + review_count + "</strong><br>");
         });
         // Automatically center the map fitting all markers on the screen
-        // map.fitBounds(bounds);
+        map.fitBounds(bounds);
     }
 
-    function setMarkersUsingGeocoder(map, geocoder, infowindow, bounds) {
-        console.log('Inside setMarkersUsingGeocoder');
-        // test locations
-        var locations = new Array();
-        var address = {};
-        address['lat'] = 17.413742;
-        address['long'] = 78.2662389;
-        locations.push(address);
-        address = {};
-        address['lat'] = 12.9545163;
-        address['long'] = 77.35005;
-        locations.push(address);
-        for (var i = locations.length - 1; i >= 0; i--) {
-            reverseGeoCode(map, geocoder, locations[i], infowindow, bounds);
-        }
-    }
-
-    function reverseGeoCode(map, geocoder, address, infowindow, bounds) {
-        console.log('Inside reverseGeoCode');
+    function getLocationFromGeoCode(address, next) {
+        console.log('Inside getLocationFromGeoCode');
         var latlng = {
             lat: address['lat'],
             lng: address['long']
@@ -127,8 +162,6 @@ jQuery(document).ready(function() {
                     });
                     // Automatically center the map fitting all markers on the screen
                     map.fitBounds(bounds);
-                    // infowindow.setContent(results[1].formatted_address);
-                    // infowindow.open(map, marker);
                 } else {
                     window.alert('No results found');
                 }
@@ -137,60 +170,4 @@ jQuery(document).ready(function() {
             }
         });
     }
-
-    function clearMarkers() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
-        markers = [];
-    }
-
-
-    // AJAX call for autocomplete 
-    $("#search-box").keyup(function(){
-        $.ajax({
-        type: "POST",
-        url: "getCities.php",
-        data:'keyword='+$(this).val(),
-        // beforeSend: function(){
-        //     $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
-        // },
-        success: function(data){
-            $("#suggesstion-box").show();
-            $("#suggesstion-box").html(data);
-            $("#search-box").css("background","#FFF");
-        }
-        });
-    });
-
-    
-
-    //To select city name
-    function getBusinessInfoForCity() {
-        $("#search-box").val(val);
-        $("#suggesstion-box").hide();
-        $.ajax({
-            type: "POST",
-            url: "getBusinessList.php",
-            data: val,
-            success: function(data){
-                $("#suggesstion-box").show();
-                $("#suggesstion-box").html(data);
-                $("#search-box").css("background","#FFF");
-            }
-        });
-    }
-
-
-
-    // var val = $('#slider').slider("option", "value");
-    // console.log(val);
-
-    // $('#slider').slider({
-    //        slide: function (event, ui) {
-    //         console.log(ui.value);
-    //            // $('#anyDiv').val(ui.value);
-    //        }
-    //    });
-
 });

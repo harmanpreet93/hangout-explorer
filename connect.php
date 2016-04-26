@@ -1,10 +1,10 @@
 <?php
 
 /* Database config */
-$db_host		= 'localhost';
+$db_host		= '192.168.0.102';
 $db_user		= 'root';
-$db_pass		= '';
-$db_database	= 'ourdb';
+$db_pass		= '1234';
+$db_database	= 'yelpdb';
 
 /* Create connection */
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_database);
@@ -13,5 +13,4 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 ?>

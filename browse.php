@@ -1,7 +1,6 @@
 <?php
-    include 'main.php'
-  ?>
-
+  require 'main.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +29,24 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header" >
-                <a class="navbar-brand">Hangout Hunter</a>
+                <a class="navbar-brand" href="browse.php">Hangout Hunter</a>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="">About</a>
+                    </li>
+                    <li>
+                        <a>Welcome user</a>
+                    </li>
+                    <li>
+                        <a href="">Logout</a>
+                    </li>
+                </ul>
             
             <!-- /.navbar-collapse -->
         </div>
@@ -49,8 +64,9 @@
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>  
                         </span>
-                        <div id="suggesstion-box"></div>
                     </div>
+                  <div id="suggesstion-box">
+                  </div>
                 </div>
             </div>
         </div>
@@ -67,17 +83,14 @@
           <div class="modal-body">
           <div class="container-fluid">
               <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Business Info</a></li>
+                <li class="active"><a data-toggle="tab" href="#business_info">Business Info</a></li>
                 <li><a data-toggle="tab" href="#review_summary">Reviews</a></li>
                 <li><a data-toggle="tab disabled" href="#menu2">User Reviews</a></li>
               </ul>
 
               <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
-                  <h3>Business Info</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div id="business_info" class="tab-pane fade in active">
+
                 </div>
                 <div id="review_summary" class="tab-pane fade">
                   <!-- <h3>Reviews</h3> -->
@@ -111,31 +124,34 @@
                   
                   <div class="container">
                     <h4>Business Types</h4>
-                    <form role="form">
+                    <form id="filter_form" role="form" action="" method="post">
                       <div class="checkbox">
-                        <label><input type="checkbox" value="Restraunts">Restraunts</label>
+                        <label><input type="checkbox" name="categoryArr[]" value="Arts-Entertainment">Arts & Entertainment</label>
                       </div>
                       <div class="checkbox">
-                        <label><input type="checkbox" value="Hotels">Hotels</label>
+                        <label><input type="checkbox" name="categoryArr[]" value="Automotive">Automotive</label>
                       </div>
                       <div class="checkbox">
-                        <label><input type="checkbox" value="Pubs">Pubs</label>
+                        <label><input type="checkbox" name="categoryArr[]" value="Beauty-Spas">Beauty & Spas</label>
                       </div>
                       <div class="checkbox">
-                        <label><input type="checkbox" value="Education">Education</label>
+                        <label><input type="checkbox" name="categoryArr[]" value="Restaurants">Restaurants</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" name="categoryArr[]" value="Shopping">Shopping</label>
                       </div>
                   </div>
                     <br>
                     <div>
                         <h4>Ratings</h4>
-                        <input id="slider" type=range multiple min=0 max=5 step="0.5" value="0.5">
+                        <input id="slider" name="rating" type=range multiple min=0 max=5 step="0.5" value="0.0">
                     </div>
                     <br>
                     <div class="checkbox">
-                        <label><input type="checkbox" disabled value="Get User Places">Get User Places</label>
+                        <label><input type="checkbox" name="visited" value="visited">View my visited places</label>
                       </div>
                     <br>
-                     <button class="list-group-item active" id="filter" type="submit">Filter</button>
+                     <button class="list-group-item active" id="filter" type="submit" name="filter" value="filter">Filter</button>
 
                 </div>
             </form>
@@ -169,10 +185,10 @@
 
     <!-- script references -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD0B6ZjwPMudl5JmcxZtEWgtZPB8IEMnk0&libraries=places"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDgnkclVTMrcELYURLVmZ5mdZ9Z_HH2OQ0&libraries=places"></script> -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/jqcloud-1.0.4.min.js"></script>
     
 </body>
 

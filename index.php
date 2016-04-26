@@ -1,6 +1,6 @@
 <?php
-    include 'login.php';
-  ?>
+    require 'login.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,19 +54,20 @@
 			                    <form role="form" action="" method="post" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input type="text" name="form-username" placeholder="User ID" class="form-username form-control" id="form-username">
+			                        	<input type="text" name="userid" placeholder="User ID" class="form-username form-control" id="username" required>
 			                        </div>
 			                        <!-- <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
 			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
 			                        </div> -->
-			                        <button type="submit" class="btn">Sign in</button>
+			                        <input type="submit" class="btn" name="submit" value="Login"></input>
+			                        <!-- <input type="submit" class="btn" value="Guest"></input> -->
 
 			                    </form>
 		                    </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 social-login">
                         	<h3>or login as:</h3>
                         	<div class="social-login-buttons">
@@ -75,7 +76,7 @@
                                 </a>
                         	</div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             

@@ -10,59 +10,109 @@ session_set_cookie_params(7*24*60*60);
 //start the session
 session_start();
 
-if($_SESSION['err']) {
+if (isset($_SESSION['err'])){
   echo '<div class="err">'."Note: ".$_SESSION['err'].'</div>';
-  //echo "<script type='text/javascript'>alert('ERROR!');</script>";
+  echo "<script type='text/javascript'>alert('ERROR!');</script>";
   unset($_SESSION['err']);
 }
 
-if($_SESSION['userid']) {
-	header("Location: main.php");
+if (isset($_SESSION["userid"])) {
+	// print_r($_SESSION);
+	header("Location: browse.php");
 	exit;
 }
 
-if($_POST['submit']=='Login') {
+
+// print_r($_SESSION);
+
+if (isset($_POST['submit']) && $_POST['submit']=='Login') {
+
 	//if the login form has been submitted
+  // echo "<script type='text/javascript'>alert('val:".$_POST['submit']."');</script>";
+
 
 	$err = array();
 	// Will hold our errors
+  	// echo "<script type='text/javascript'>alert('ghusa BC!');</script>";
+
 
 	if(!count($err)) {
+  		// echo "<script type='text/javascript'>alert('inside');</script>";
 
 		$_POST['userid'] = mysql_real_escape_string($_POST['userid']);
+		$userid = mysql_real_escape_string($_POST['userid']);
+  		// echo "<script type='text/javascript'>alert('the userid is ".$userid."');</script>";
 
-		$row = mysql_fetch_assoc(mysql_query("SELECT id, username FROM table WHERE id='{$_POST['userid']}'"));
+  		// $row = mysqli_query($conn, $sql);
+  		$result = mysqli_query($conn,"SELECT user_id FROM user WHERE user_id='".$_POST['userid']."'");
 
-		if($row['username']) {
-			// If everything is OK login
+	  	if (mysqli_num_rows($result) > 0) {	
+	  		while($row = $result->fetch_assoc()) {
+	  			$uid = $row['user_id'];
+	  			// echo "<script type='text/javascript'>alert('entry found".$uid."');</script>";
 
-			$_SESSION['usertype'] = 'registered';
-			$_SESSION['username']=$row['username'];
-			$_SESSION['userid'] = $row['userid'];
-			// Store some data in the session
+				// If everything is OK login
 
-			header("Location: main.php");
-			exit;
-			//redirect to main page after successful login
-		}
-		else {
-			$err[] = 'Incorrect user ID. Please try again.';
-		}
+				$_SESSION['usertype'] = 'registered';
+				$_SESSION['username']= 'Chatu';
+				// $_SESSION['cityname']= 'Hyderabad';
+				// $_SESSION['username']=$row['username'];
+				$_SESSION['userid'] = $row['user_id'];
+				echo 'hey user found';
+				// Store some data in the session
+
+				header("Location: browse.php");
+				exit;
+				//redirect to main page after successful login
+	  		}
+	  	}
+  		else {
+  			$err[] = 'Incorrect user ID. Please try again.';
+  		}
+		// $row = mysql_fetch_assoc(mysqli_query($conn,"SELECT user_id FROM user WHERE user_id='".$_POST['userid']."'"));
+  		// echo "<script type='text/javascript'>alert(".$row['user_id'].");</script>";
+
+		// if($row['user_id']) {
+  // 			echo "<script type='text/javascript'>alert('entry found');</script>";
+
+		// 	// If everything is OK login
+
+		// 	$_SESSION['usertype'] = 'registered';
+		// 	$_SESSION['username']= 'Chatu';
+		// 	// $_SESSION['username']=$row['username'];
+		// 	$_SESSION['userid'] = $row['user_id'];
+		// 	// echo 'hey user found';
+		// 	// Store some data in the session
+
+		// 	header("Location: browse.php");
+		// 	exit;
+		// 	//redirect to main page after successful login
+		// }
+		// else {
+  // 			// echo "<script type='text/javascript'>alert('not found!');</script>";
+
+		// 	// echo 'hey user not found';
+		// 	$err[] = 'Incorrect user ID. Please try again.';
+		// }
 	}
 
-	if($err) {
+	else if($err) {
+  		echo "<script type='text/javascript'>alert('error!!!');</script>";
+
 		$_SESSION['err'] = implode('<br />',$err);
-		header("Location: login.php");
+		header("Location: index.php");
 		exit;
 	}
 
 }
 
-else if($_POST['submit']=='Guest') {
+else if (isset($_POST['submit']) && $_POST['submit']=='Guest') {
 	//if the guest form has been submitted
 	$_SESSION['usertype'] = 'guest';
-	header("Location: main.php");
+	header("Location: browse.php");
 	exit;
+
 }
+
 
 ?>

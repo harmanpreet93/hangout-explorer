@@ -1,17 +1,26 @@
 <?php
+session_name('Login');
+session_start();
 
-require 'filter.php';
+// require 'filter.php';
 
-if(!$_SESSION['userid']) {
-	header("Location: login.php");
-	exit;
-}
+	// $hello = 'hello';
+	// print_r($hello);
+	// print_r($_SESSION);
+	// header("Location: browse.php");
+	// exit;
+
+
+// if(!$_SESSION['userid']) {
+// 	header("Location: index.php");
+// 	exit;
+// }
 
 if(isset($_GET['logout'])) {
 	$_SESSION = array();
 	session_destroy();
 
-	header("Location: login.php");
+	header("Location: index.php");
 	exit;
 }
 
