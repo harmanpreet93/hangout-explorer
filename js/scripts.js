@@ -9,24 +9,7 @@ jQuery(document).ready(function() {
     var word_array = [];
 
     document.getElementById("parent-list").addEventListener("click",function(e){
-
-        // console.log("are aagaya");
-        // word_array = [
-        //                             {text: "Lorem", weight: 15, html:{style:"color:#a90000"}},
-        //                             {text: "Ipsum", weight: 9},
-        //                             {text: "Dolor", weight: 6},
-        //                             {text: "Sit", weight: 7},
-        //                             {text: "Amet", weight: 5},
-        //                             {text: "Hey", weight: 15},
-        //                             {text: "Harman", weight: 9},
-        //                             {text: "Dol", weight: 6},
-        //                             {text: "Sitter", weight: 7},
-        //                             {text: "Amity", weight: 5}
-
-                                    
-        //                         ];
-                              
-                $("#word_cloud").jQCloud(word_array,{width:720,height:400,delay:50});
+                $("#word_cloud").jQCloud(word_array,{width:720,height:400,delay:100});
     
     });
 

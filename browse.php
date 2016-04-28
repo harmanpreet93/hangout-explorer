@@ -38,9 +38,9 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <!-- <li>
                         <a href="">About</a>
-                    </li>
+                    </li> -->
                     <!-- <li> -->
                         <!-- <a>Welcome user</a> -->
                         <!-- <a id = "welcome"></a> -->
@@ -78,10 +78,6 @@
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <!-- <div class="modal-header"> -->
-            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-            <!-- <h4 class="modal-title">Reviews Summary</h4> -->
-          <!-- </div> -->
           <div class="modal-body">
           <div class="container-fluid">
               <ul class="nav nav-tabs" id="parent-list">
