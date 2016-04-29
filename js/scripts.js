@@ -7,6 +7,10 @@ jQuery(document).ready(function() {
     var bounds;
     var geocoder;
     var word_array = [];
+    
+     $.backstretch([
+                   "img/backgrounds/1.jpg"
+                 ], {duration: 3000, fade: 750});
 
     document.getElementById("parent-list").addEventListener("click",function(e){
                 $("#word_cloud").jQCloud(word_array,{width:720,height:400,delay:100});
