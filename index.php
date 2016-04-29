@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="css/style.css">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/ico/favicon.ico">
+        <link rel="shortcut icon" href="ico/favicon.ico">
     </head>
 
     <body>
@@ -32,7 +32,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>Word</strong> Hunter</h1>
+                            <h1><strong>Hangout</strong> Hunter</h1>
                             <div class="description">
                             	<p>
 	                            	<strong>Get the summarized reviews for the businesses in your area.</strong>
@@ -60,26 +60,24 @@
 			                        	<label class="sr-only" for="form-password">Password</label>
 			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
 			                        </div> -->
-			                        <input type="submit" class="btn" name="submit" value="Login"></input>
+			                        <input type="submit" class="btn" name="submit" value="Login" style="width: 100%;"></input>
 
 			                    </form>
-			                    <form role="form" method="post" action="" class="login-form">
-			                        <input type="submit" class="btn" name="guestSubmit" value="Guest" style="margin-top: 10px"></input>
-			                    </form>
+			                    <!-- <form role="form" method="post" action="" class="login-form">
+			                        <input type="submit" class="btn" name="guestSubmit" value="Guest" style="margin-top: 10px; width: 100%" ></input>
+			                    </form> -->
 
 		                    </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 social-login">
                         	<h3>or login as:</h3>
-                        	<div class="social-login-buttons">
-                                <a class="btn btn-link-2">
-                                    <i class="guest-user"></i> Guest User
-                                </a>
-                        	</div>
+                        	<form role="form" method="post" action="" class="login-form">
+                                    <input type="submit" class="btn" name="guestSubmit" value="Guest" style="margin-top: 10px; width: 50%" ></input>
+                            </form>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             
@@ -90,11 +88,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.backstretch.min.js"></script>
+        <script src="js/scripts_index.js"></script>
         
-        <!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
-        <![endif]-->
-
     </body>
 
 </html>
