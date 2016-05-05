@@ -51,7 +51,7 @@
                 </ul>
             
             <!-- /.navbar-collapse -->
-        </div>
+          </div>
         <!-- /.container -->
     </nav>
 

@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 					// If everything is OK login
 
 					$_SESSION['usertype'] = 'registered';
-					$_SESSION['username']= 'Chatu';
+					$_SESSION['username']= 'Harman';
 					// $_SESSION['cityname']= 'Hyderabad';
 					// $_SESSION['username']=$row['username'];
 					$_SESSION['userid'] = $row['user_id'];

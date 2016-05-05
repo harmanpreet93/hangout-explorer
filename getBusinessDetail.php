@@ -1,6 +1,5 @@
 <?php
 session_name('Login');
-
 session_start();
 
 require 'connect.php';
@@ -30,8 +29,6 @@ if (mysqli_num_rows($reviewDetail) > 0) {
     	array_push($reviews, $row);
 	}
 }
-// $row = mysqli_fetch_array($conn, MYSQL_BOTH);
-// $encodedReviewDetail = json_encode($row,true);
 
 $encodedReviewDetail = json_encode($reviews);
 // echo $encodedReviewDetail;

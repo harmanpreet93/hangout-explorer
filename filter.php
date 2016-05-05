@@ -1,26 +1,18 @@
 <?php
 session_name('Login');
-
 session_start();
 
 require 'connect.php';
 
-// echo "<script type='text/javascript'>alert('".$_POST['categoryArr'][0]."');</script>";
-// echo "<script type='text/javascript'>alert('".$_POST['rating']."');</script>";
-// echo "<script type='text/javascript'>alert('".$_POST['visited']."');</script>";
-
-
 if (isset($_POST)) {
 	$query = "SELECT * FROM ( SELECT * FROM business WHERE city = '".$_SESSION['cityname']."'";
   	// echo "<script type='text/javascript'>alert('".$query."');</script>";
-
 
 	$categoryStr = "";
 	if (isset($_POST['categoryArr'])) {
 		$categoryArr = $_POST['categoryArr'];
 
   		// echo "<script type='text/javascript'>alert('".$categoryArr[0]."');</script>";
-	
 
 		//creating comma separated values
 		for ($i=0;$i<sizeof($categoryArr);$i++) {
