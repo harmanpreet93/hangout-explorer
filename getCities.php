@@ -4,7 +4,7 @@ require 'connect.php';
 
 $string = $_POST['keyword'];
 
-$cityList = mysqli_query($conn, "SELECT `name` FROM cities WHERE `name` LIKE '{$string}%' ");
+$cityList = mysqli_query($conn, "SELECT `name` FROM swe_cities WHERE `name` LIKE '{$string}%' ");
 
 $names = array();
 

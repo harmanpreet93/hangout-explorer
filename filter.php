@@ -5,7 +5,7 @@ session_start();
 require 'connect.php';
 
 if (isset($_POST)) {
-	$query = "SELECT * FROM ( SELECT * FROM business WHERE city = '".$_SESSION['cityname']."'";
+	$query = "SELECT * FROM ( SELECT * FROM swe_business WHERE city = '".$_SESSION['cityname']."'";
   	// echo "<script type='text/javascript'>alert('".$query."');</script>";
 
 	$categoryStr = "";
@@ -37,7 +37,7 @@ if (isset($_POST)) {
 	if (isset($_POST['visited'])) { 
 		if ($_SESSION['usertype'] == 'registered') {
 			$userid = $_SESSION['userid'];
-			$query .= " INNER JOIN review r ON b.business_id = r.business_id AND user_id = '".$userid."'";
+			$query .= " INNER JOIN swe_review r ON b.business_id = r.business_id AND user_id = '".$userid."'";
 		}
 	}
   	// echo "<script type='text/javascript'>alert('".$query."');</script>";

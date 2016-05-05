@@ -22,7 +22,7 @@ $userid = $_SESSION['userid'];
 // $row = mysqli_fetch_array($conn, MYSQL_BOTH);
 // $encodedBusinessDetail = json_encode($row,true);
 
-$reviewDetail = mysqli_query($conn, "SELECT * FROM review WHERE business_id = '".$businessid."' AND user_id = '".$userid."' ");
+$reviewDetail = mysqli_query($conn, "SELECT * FROM swe_review WHERE business_id = '".$businessid."' AND user_id = '".$userid."' ");
 $reviews = array();
 if (mysqli_num_rows($reviewDetail) > 0) {	
 	while($row = $reviewDetail->fetch_assoc()) {

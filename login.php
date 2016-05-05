@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 	  		// echo "<script type='text/javascript'>alert('the userid is ".$userid."');</script>";
 
 	  		// $row = mysqli_query($conn, $sql);
-	  		$result = mysqli_query($conn,"SELECT user_id FROM user WHERE user_id='".$_POST['userid']."'");
+	  		$result = mysqli_query($conn,"SELECT user_id FROM swe_user WHERE user_id='".$_POST['userid']."'");
 
 		  	if (mysqli_num_rows($result) > 0) {	
 		  		while($row = $result->fetch_assoc()) {
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 					// If everything is OK login
 
 					$_SESSION['usertype'] = 'registered';
-					$_SESSION['username']= 'Harman';
+					$_SESSION['username']= 'Ratnesh';
 					// $_SESSION['cityname']= 'Hyderabad';
 					// $_SESSION['username']=$row['username'];
 					$_SESSION['userid'] = $row['user_id'];

@@ -4,7 +4,7 @@ require 'connect.php';
     if(!empty($_POST["keyword"])) {
         $string = $_POST['keyword'];
 
-      $query = "SELECT `name` FROM cities WHERE `name` LIKE '{$string}%' LIMIT 0,5";
+      $query = "SELECT `name` FROM swe_cities WHERE `name` LIKE '{$string}%' LIMIT 0,5";
       $result = mysqli_query($conn,$query);
     if(!empty($result)) {
 ?>

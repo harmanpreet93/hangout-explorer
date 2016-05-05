@@ -11,7 +11,7 @@ $_SESSION['cityname'] = $cityname;
 
 // echo "<script type='text/javascript'>alert('".$_SESSION['cityname']."');</script>";
 
-$sql = "SELECT * FROM business WHERE city = '".$cityname."'";
+$sql = "SELECT * FROM swe_business WHERE city = '".$cityname."'";
 $businessList = mysqli_query($conn, $sql);	
 
 $data = array();
